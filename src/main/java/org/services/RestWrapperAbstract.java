@@ -28,6 +28,7 @@ public abstract class RestWrapperAbstract {
                 .addConverterFactory(JacksonConverterFactory.create())
                 .client(getPreparedHttpClient(addAdditionalHeader(authToken))).build();
     }
+
     /**
      * Preparing prior OkHttpclient with timeouts for first authorization
      */
@@ -61,7 +62,8 @@ public abstract class RestWrapperAbstract {
     }
 
     /**
-     *Add additional header to Request */
+     * Add additional header to Request
+     */
     protected Interceptor addAdditionalHeader(String token) {
         Interceptor interceptor = new Interceptor() {
             @Override
