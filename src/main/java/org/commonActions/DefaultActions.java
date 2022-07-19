@@ -1,4 +1,4 @@
-package org.actions;
+package org.commonActions;
 
 import retrofit2.Call;
 import retrofit2.Response;

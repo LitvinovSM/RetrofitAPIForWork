@@ -1,4 +1,4 @@
-package org.DTO;
+package org;
 
 /**
  * Hello world!

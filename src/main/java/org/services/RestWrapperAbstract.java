@@ -14,7 +14,6 @@ public abstract class RestWrapperAbstract {
     protected Retrofit readyRetrofit;
     protected static int READ_TIMEOUT = 60;
     protected static int CONNECT_TIMEOUT = 60;
-    public static String BASE_URL;
     /*
     Services
     */
@@ -23,11 +22,11 @@ public abstract class RestWrapperAbstract {
      * Default constructor.
      * It initializes all services before tests
      */
-    public RestWrapperAbstract(String AuthToken, String BASE_URL) {
+    public RestWrapperAbstract(String authToken, String BASE_URL) {
         readyRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(JacksonConverterFactory.create())
-                .client(getPreparedHttpClient(addAdditionalHeader(AuthToken))).build();
+                .client(getPreparedHttpClient(addAdditionalHeader(authToken))).build();
     }
     /**
      * Preparing prior OkHttpclient with timeouts for first authorization

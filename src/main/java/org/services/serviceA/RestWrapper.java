@@ -23,8 +23,8 @@ public class RestWrapper extends RestWrapperAbstract {
      * Default constructor.
      * It initializes all services before tests
      */
-    public RestWrapper(String token) {
-        super(token,BASE_URL);
+    public RestWrapper(String authToken) {
+        super(authToken,BASE_URL);
         userService = readyRetrofit.create(UserService.class);
         loginService = readyRetrofit.create(LoginService.class);
 

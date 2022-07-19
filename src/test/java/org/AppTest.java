@@ -3,7 +3,7 @@ package org;
 import static org.junit.Assert.assertTrue;
 
 import okhttp3.Headers;
-import org.actions.DefaultActions;
+import org.commonActions.DefaultActions;
 import org.junit.Before;
 import org.junit.Test;
 import org.DTO.serviceA.login.LoginRq;
