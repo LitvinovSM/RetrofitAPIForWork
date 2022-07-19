@@ -1,8 +1,8 @@
-package org.services;
+package org.services.serviceA.services;
 
-import org.DTO.users.CreateUserRq;
-import org.DTO.users.CreateUserRs;
-import org.DTO.users.ListUsers;
+import org.DTO.serviceA.users.CreateUserRq;
+import org.DTO.serviceA.users.CreateUserRs;
+import org.DTO.serviceA.users.ListUsers;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

@@ -1,4 +1,4 @@
-package org.DTO.users;
+package org.DTO.serviceA.users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

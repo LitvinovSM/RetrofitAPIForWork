@@ -1,4 +1,4 @@
-package org.DTO.users;
+package org.DTO.serviceA.users;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
