@@ -1,15 +1,15 @@
-package mainLogic.services.serviceA;
+package mainLogic.services.loginService;
 
-import mainLogic.DTO.serviceA.login.LoginRq;
-import mainLogic.DTO.serviceA.login.LoginRs;
+import mainLogic.DTO.loginService.LoginRq;
+import mainLogic.DTO.loginService.LoginRs;
 import mainLogic.services.RestWrapperAbstract;
-import mainLogic.services.serviceA.services.LoginService;
-import mainLogic.services.serviceA.services.UserService;
+import mainLogic.services.loginService.api.LoginService;
+import mainLogic.services.userService.api.UserService;
 import retrofit2.Call;
 
 import java.io.IOException;
 
-public class RestWrapperServiceA extends RestWrapperAbstract {
+public class RestWrapperLoginService extends RestWrapperAbstract {
 
     private static final String BASE_URL = "https://reqres.in/api/";
     /*
@@ -23,21 +23,20 @@ public class RestWrapperServiceA extends RestWrapperAbstract {
      * Default constructor.
      * It initializes all services before tests
      */
-    public RestWrapperServiceA(String authToken) {
+    public RestWrapperLoginService(String authToken) {
         super(authToken,BASE_URL);
-        userService = readyRetrofit.create(UserService.class);
         loginService = readyRetrofit.create(LoginService.class);
 
     }
     /**
      * Method for creating different APIs with different permissions*/
-    public static RestWrapperServiceA loginAs(String login, String password) throws IOException {
+    public static RestWrapperLoginService loginAs(String login, String password) throws IOException {
         LoginRq rq = LoginRq.builder().email(login).password(password).build();
         LoginService defaultLoginService = getDefaultRetrofit(BASE_URL).create(LoginService.class);
         Call<LoginRs> rsCall = defaultLoginService.login(rq);
         LoginRs body = rsCall.execute().body();
         String token = body.getToken();
-        return new RestWrapperServiceA(token);
+        return new RestWrapperLoginService(token);
     }
 
 }

@@ -1,7 +1,7 @@
-package mainLogic.services.serviceA.services;
+package mainLogic.services.loginService.api;
 
-import mainLogic.DTO.serviceA.login.LoginRq;
-import mainLogic.DTO.serviceA.login.LoginRs;
+import mainLogic.DTO.loginService.LoginRq;
+import mainLogic.DTO.loginService.LoginRs;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;

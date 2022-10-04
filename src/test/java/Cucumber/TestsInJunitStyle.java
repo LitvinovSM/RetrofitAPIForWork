@@ -6,13 +6,13 @@ import okhttp3.Headers;
 import mainLogic.commonActions.DefaultActions;
 import org.junit.Before;
 import org.junit.Test;
-import mainLogic.DTO.serviceA.login.LoginRq;
-import mainLogic.DTO.serviceA.login.LoginRs;
-import mainLogic.DTO.serviceA.users.CreateUserRq;
-import mainLogic.DTO.serviceA.users.CreateUserRs;
-import mainLogic.DTO.serviceA.users.ListUsers;
-import mainLogic.services.serviceA.services.LoginService;
-import mainLogic.services.serviceA.RestWrapperServiceA;
+import mainLogic.DTO.loginService.LoginRq;
+import mainLogic.DTO.loginService.LoginRs;
+import mainLogic.DTO.userService.CreateUserRq;
+import mainLogic.DTO.userService.CreateUserRs;
+import mainLogic.DTO.userService.ListUsers;
+import mainLogic.services.loginService.api.LoginService;
+import mainLogic.services.loginService.RestWrapperLoginService;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -23,11 +23,11 @@ import java.io.IOException;
  */
 public class TestsInJunitStyle {
 
-    RestWrapperServiceA api;
+    RestWrapperLoginService api;
 
     @Before
     public void prepareTest() throws IOException {
-        api = RestWrapperServiceA.loginAs("eve.holt@reqres.in", "cityslicka");
+        api = RestWrapperLoginService.loginAs("eve.holt@reqres.in", "cityslicka");
     }
 
     @Test

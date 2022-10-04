@@ -1,26 +1,26 @@
-package mainLogic.services.serviceA;
+package mainLogic.services.loginService;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.ru.И;
 import okhttp3.Headers;
-import mainLogic.DTO.serviceA.login.LoginRq;
-import mainLogic.DTO.serviceA.login.LoginRs;
-import mainLogic.services.serviceA.services.LoginService;
+import mainLogic.DTO.loginService.LoginRq;
+import mainLogic.DTO.loginService.LoginRs;
+import mainLogic.services.loginService.api.LoginService;
 import retrofit2.Call;
 
 import java.io.IOException;
 
-public class ServiceASteps {
+public class LoginServiceSteps {
 
-    RestWrapperServiceA api;
+    RestWrapperLoginService api;
 
     @Before
     public void prepareTest() throws IOException {
-        api = RestWrapperServiceA.loginAs("eve.holt@reqres.in", "cityslicka");
+        api = RestWrapperLoginService.loginAs("eve.holt@reqres.in", "cityslicka");
     }
 
-    @И("открывает телеграмм веб")
-    public void shouldAnswerWithTrue10() throws IOException, InterruptedException {
+    @И("пользователь авторизуется")
+    public void shouldAnswerWithTrue10() throws IOException {
         LoginRq rq = LoginRq.builder().email("eve.holt@reqres.in").password("cityslicka").build();
         LoginService service = api.loginService;
         Call<LoginRs> call = service.login(rq);

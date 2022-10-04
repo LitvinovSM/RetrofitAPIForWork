@@ -1,8 +1,8 @@
-package mainLogic.services.serviceA.services;
+package mainLogic.services.userService.api;
 
-import mainLogic.DTO.serviceA.users.CreateUserRq;
-import mainLogic.DTO.serviceA.users.CreateUserRs;
-import mainLogic.DTO.serviceA.users.ListUsers;
+import mainLogic.DTO.userService.CreateUserRq;
+import mainLogic.DTO.userService.CreateUserRs;
+import mainLogic.DTO.userService.ListUsers;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

@@ -1,4 +1,4 @@
-package mainLogic.DTO.serviceA.login;
+package mainLogic.DTO.loginService;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

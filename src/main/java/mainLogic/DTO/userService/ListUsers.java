@@ -1,4 +1,4 @@
-package mainLogic.DTO.serviceA.users;
+package mainLogic.DTO.userService;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
