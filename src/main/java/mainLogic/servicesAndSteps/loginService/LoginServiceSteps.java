@@ -1,11 +1,11 @@
-package mainLogic.services.loginService;
+package mainLogic.servicesAndSteps.loginService;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.ru.И;
 import okhttp3.Headers;
 import mainLogic.DTO.loginService.LoginRq;
 import mainLogic.DTO.loginService.LoginRs;
-import mainLogic.services.loginService.api.LoginService;
+import mainLogic.servicesAndSteps.loginService.api.LoginService;
 import retrofit2.Call;
 
 import java.io.IOException;

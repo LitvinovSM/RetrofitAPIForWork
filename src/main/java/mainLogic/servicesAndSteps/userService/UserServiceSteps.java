@@ -1,11 +1,10 @@
-package mainLogic.services.userService;
+package mainLogic.servicesAndSteps.userService;
 
 import io.cucumber.java.Before;
-import io.cucumber.java.ru.И;
 import mainLogic.DTO.loginService.LoginRq;
 import mainLogic.DTO.loginService.LoginRs;
-import mainLogic.services.loginService.RestWrapperLoginService;
-import mainLogic.services.loginService.api.LoginService;
+import mainLogic.servicesAndSteps.loginService.RestWrapperLoginService;
+import mainLogic.servicesAndSteps.loginService.api.LoginService;
 import okhttp3.Headers;
 import retrofit2.Call;
 
@@ -20,7 +19,7 @@ public class UserServiceSteps {
         api = RestWrapperLoginService.loginAs("eve.holt@reqres.in", "cityslicka");
     }
 
-    @И("пользователь авторизуется")
+    //@И("пользователь авторизуется")
     public void shouldAnswerWithTrue10() throws IOException {
         LoginRq rq = LoginRq.builder().email("eve.holt@reqres.in").password("cityslicka").build();
         LoginService service = api.loginService;

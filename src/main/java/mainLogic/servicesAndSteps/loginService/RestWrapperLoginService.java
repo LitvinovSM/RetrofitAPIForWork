@@ -1,13 +1,15 @@
-package mainLogic.services.loginService;
+package mainLogic.servicesAndSteps.loginService;
 
 import mainLogic.DTO.loginService.LoginRq;
 import mainLogic.DTO.loginService.LoginRs;
-import mainLogic.services.RestWrapperAbstract;
-import mainLogic.services.loginService.api.LoginService;
-import mainLogic.services.userService.api.UserService;
+import mainLogic.servicesAndSteps.RestWrapperAbstract;
+import mainLogic.servicesAndSteps.loginService.api.LoginService;
+import mainLogic.servicesAndSteps.userService.api.UserService;
 import retrofit2.Call;
 
 import java.io.IOException;
+
+import static mainLogic.servicesAndSteps.BeforeAndAfterSteps.readyRetrofit;
 
 public class RestWrapperLoginService extends RestWrapperAbstract {
 
@@ -24,7 +26,6 @@ public class RestWrapperLoginService extends RestWrapperAbstract {
      * It initializes all services before tests
      */
     public RestWrapperLoginService(String authToken) {
-        super(authToken,BASE_URL);
         loginService = readyRetrofit.create(LoginService.class);
 
     }

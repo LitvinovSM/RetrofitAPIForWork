@@ -1,13 +1,9 @@
-package mainLogic.services.userService;
+package mainLogic.servicesAndSteps.userService;
 
-import mainLogic.DTO.loginService.LoginRq;
-import mainLogic.DTO.loginService.LoginRs;
-import mainLogic.services.RestWrapperAbstract;
-import mainLogic.services.loginService.api.LoginService;
-import mainLogic.services.userService.api.UserService;
-import retrofit2.Call;
+import mainLogic.servicesAndSteps.RestWrapperAbstract;
+import mainLogic.servicesAndSteps.userService.api.UserService;
 
-import java.io.IOException;
+import static mainLogic.servicesAndSteps.BeforeAndAfterSteps.readyRetrofit;
 
 public class RestWrapperUserService extends RestWrapperAbstract {
 
@@ -23,7 +19,6 @@ public class RestWrapperUserService extends RestWrapperAbstract {
      * It initializes all services before tests
      */
     public RestWrapperUserService(String authToken) {
-        super(authToken,BASE_URL);
         userService = readyRetrofit.create(UserService.class);
     }
 

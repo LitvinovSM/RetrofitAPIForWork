@@ -11,8 +11,8 @@ import mainLogic.DTO.loginService.LoginRs;
 import mainLogic.DTO.userService.CreateUserRq;
 import mainLogic.DTO.userService.CreateUserRs;
 import mainLogic.DTO.userService.ListUsers;
-import mainLogic.services.loginService.api.LoginService;
-import mainLogic.services.loginService.RestWrapperLoginService;
+import mainLogic.servicesAndSteps.loginService.api.LoginService;
+import mainLogic.servicesAndSteps.loginService.RestWrapperLoginService;
 import retrofit2.Call;
 import retrofit2.Response;
 

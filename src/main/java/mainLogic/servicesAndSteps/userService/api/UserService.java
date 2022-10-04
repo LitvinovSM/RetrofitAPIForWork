@@ -1,4 +1,4 @@
-package mainLogic.services.userService.api;
+package mainLogic.servicesAndSteps.userService.api;
 
 import mainLogic.DTO.userService.CreateUserRq;
 import mainLogic.DTO.userService.CreateUserRs;

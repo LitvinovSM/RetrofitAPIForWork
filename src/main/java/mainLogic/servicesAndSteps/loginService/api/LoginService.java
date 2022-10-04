@@ -1,4 +1,4 @@
-package mainLogic.services.loginService.api;
+package mainLogic.servicesAndSteps.loginService.api;
 
 import mainLogic.DTO.loginService.LoginRq;
 import mainLogic.DTO.loginService.LoginRs;
