@@ -19,7 +19,7 @@ public class ServiceASteps {
         api = RestWrapperServiceA.loginAs("eve.holt@reqres.in", "cityslicka");
     }
 
-    @И("^открывает телеграмм веб$")
+    @И("открывает телеграмм веб")
     public void shouldAnswerWithTrue10() throws IOException, InterruptedException {
         LoginRq rq = LoginRq.builder().email("eve.holt@reqres.in").password("cityslicka").build();
         LoginService service = api.loginService;

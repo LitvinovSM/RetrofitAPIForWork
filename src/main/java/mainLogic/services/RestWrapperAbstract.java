@@ -77,4 +77,6 @@ public abstract class RestWrapperAbstract {
         };
         return interceptor;
     }
+
 }
+

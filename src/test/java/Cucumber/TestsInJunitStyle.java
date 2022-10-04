@@ -21,7 +21,7 @@ import java.io.IOException;
 /**
  * Unit test for simple App.
  */
-public class AppTest {
+public class TestsInJunitStyle {
 
     RestWrapperServiceA api;
 
