@@ -8,13 +8,14 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor @AllArgsConstructor
-public class CreateUserRq{
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateUserRq {
 
-	@JsonProperty("name")
-	private String name;
+    @JsonProperty("name")
+    private String name;
 
-	@JsonProperty("job")
-	private String job;
+    @JsonProperty("job")
+    private String job;
 
 }

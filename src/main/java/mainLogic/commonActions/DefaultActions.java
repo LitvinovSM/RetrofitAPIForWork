@@ -12,7 +12,7 @@ public class DefaultActions {
 
     private List<Integer> listCorrectStatusCodes = new ArrayList<>();
 
-    public <T> Response<T> executeAndGetResponseAsClass(Call<T> service){
+    public <T> Response<T> executeAndGetResponseAsClass(Call<T> service) {
         Call<T> call = service;
         try {
             return call.execute();
@@ -21,7 +21,7 @@ public class DefaultActions {
         }
     }
 
-    public <T> double calculateResponseTime(Response<T> response){
+    public <T> double calculateResponseTime(Response<T> response) {
         BigDecimal sentAt = BigDecimal.valueOf(response.raw().sentRequestAtMillis());
         BigDecimal receivedAt = BigDecimal.valueOf(response.raw().receivedResponseAtMillis());
         BigDecimal divider = BigDecimal.valueOf(100);
@@ -30,21 +30,21 @@ public class DefaultActions {
         return resultTimeInSeconds.doubleValue();
     }
 
-    public <T> boolean isValidatedError(Response<T> response){
+    public <T> boolean isValidatedError(Response<T> response) {
         boolean isIt = isServerError(response);
-        if (listCorrectStatusCodes.contains(response.code())){
+        if (listCorrectStatusCodes.contains(response.code())) {
             isIt = true;
 
         }
         return isIt;
     }
 
-    public <T> boolean isServerError(Response<T> response){
+    public <T> boolean isServerError(Response<T> response) {
         boolean isIt = false;
-        if (response.code()==500){
+        if (response.code() == 500) {
             isIt = true;
-            String serverErrorMessage= response.raw().body().toString();
-            System.out.println("Server error is caught. Here is a error body: \n\r"+serverErrorMessage);
+            String serverErrorMessage = response.raw().body().toString();
+            System.out.println("Server error is caught. Here is a error body: \n\r" + serverErrorMessage);
         }
         return isIt;
     }

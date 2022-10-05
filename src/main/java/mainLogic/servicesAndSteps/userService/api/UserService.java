@@ -11,13 +11,13 @@ import java.util.Map;
 public interface UserService {
 
     @GET("users")
-    Call<ListUsers> listUsers(@HeaderMap Map<String,String> headers);
+    Call<ListUsers> listUsers(@HeaderMap Map<String, String> headers);
 
     @GET("users")
-    Call<ListUsers> listUsersDelay(@HeaderMap Map<String,String> headers, @Query("delay") String timeDelay);
+    Call<ListUsers> listUsersDelay(@HeaderMap Map<String, String> headers, @Query("delay") String timeDelay);
 
     @POST("users")
-    Call<CreateUserRs> createUser(@HeaderMap Map<String,String> headers, @Body CreateUserRq rq);
+    Call<CreateUserRs> createUser(@HeaderMap Map<String, String> headers, @Body CreateUserRq rq);
 
 
 }

@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class LoginRs{
+public class LoginRs {
 
-	@JsonProperty("token")
-	private String token;
+    @JsonProperty("token")
+    private String token;
 
 }

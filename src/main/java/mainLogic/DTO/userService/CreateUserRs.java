@@ -9,20 +9,20 @@ import mainLogic.utils.deserializeStrategies.StringToLocalDateTime;
 import java.time.LocalDateTime;
 
 @Data
-public class CreateUserRs{
+public class CreateUserRs {
 
-	@JsonProperty("createdAt")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss.SSSZ")
-	@JsonDeserialize(using = StringToLocalDateTime.class)
-	private LocalDateTime createdAt;
+    @JsonProperty("createdAt")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss.SSSZ")
+    @JsonDeserialize(using = StringToLocalDateTime.class)
+    private LocalDateTime createdAt;
 
-	@JsonProperty("name")
-	private String name;
+    @JsonProperty("name")
+    private String name;
 
-	@JsonProperty("id")
-	private String id;
+    @JsonProperty("id")
+    private String id;
 
-	@JsonProperty("job")
-	private String job;
+    @JsonProperty("job")
+    private String job;
 
 }
