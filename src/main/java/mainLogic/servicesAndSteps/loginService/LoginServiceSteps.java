@@ -10,23 +10,24 @@ import retrofit2.Call;
 
 import java.io.IOException;
 
-public class LoginServiceSteps {
+public class LoginServiceSteps extends RestWrapperLoginService{
 
-    RestWrapperLoginService api;
-
-    @Before
-    public void prepareTest() throws IOException {
-        api = RestWrapperLoginService.loginAs("eve.holt@reqres.in", "cityslicka");
+    @И("'сервис авторизации' пользователь успешно авторизуется и добавляет токен к списку заголовков")
+    public void auth() throws IOException {
+        rqBody = LoginRq.builder().email("eve.holt@reqres.in").password("cityslicka").build();
+        Call<LoginRs> call = loginService.login(headers,rqBody);
+        request = call.request();
+        response = call.execute();
+        rsBody = response.body();
+        Headers requestHeaders = request.headers();
+        Headers responseHeaders = response.headers();
+        token = rsBody.getToken();
+        System.out.println(String.format("Запрос %s",request));
+        System.out.println(String.format("Ответ %s",response));
+        System.out.println(String.format("Хидеры запроса %s",requestHeaders));
+        System.out.println(String.format("Хидеры ответа %s",responseHeaders));
+        System.out.println(String.format("Токен ответа %s",token));
+        headers.put(authorizationHeaderName,tokenValuePrefix+token);
     }
 
-    @И("пользователь авторизуется")
-    public void shouldAnswerWithTrue10() throws IOException {
-        LoginRq rq = LoginRq.builder().email("eve.holt@reqres.in").password("cityslicka").build();
-        LoginService service = api.loginService;
-        Call<LoginRs> call = service.login(rq);
-
-        LoginRs rs = call.execute().body();
-        Headers headers = call.request().headers();
-        System.out.println(rs.toString());
-    }
 }

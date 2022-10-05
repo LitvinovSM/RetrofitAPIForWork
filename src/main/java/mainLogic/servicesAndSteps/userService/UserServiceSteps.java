@@ -14,19 +14,19 @@ public class UserServiceSteps {
 
     RestWrapperLoginService api;
 
-    @Before
-    public void prepareTest() throws IOException {
-        api = RestWrapperLoginService.loginAs("eve.holt@reqres.in", "cityslicka");
-    }
-
-    //@И("пользователь авторизуется")
-    public void shouldAnswerWithTrue10() throws IOException {
-        LoginRq rq = LoginRq.builder().email("eve.holt@reqres.in").password("cityslicka").build();
-        LoginService service = api.loginService;
-        Call<LoginRs> call = service.login(rq);
-
-        LoginRs rs = call.execute().body();
-        Headers headers = call.request().headers();
-        System.out.println(rs.toString());
-    }
+//    @Before
+//    public void prepareTest() throws IOException {
+//        api = RestWrapperLoginService.loginAs("eve.holt@reqres.in", "cityslicka");
+//    }
+//
+//    //@И("пользователь авторизуется")
+//    public void shouldAnswerWithTrue10() throws IOException {
+////        LoginRq rq = LoginRq.builder().email("eve.holt@reqres.in").password("cityslicka").build();
+////        LoginService service = api.loginService;
+////        Call<LoginRs> call = service.login(rq);
+////
+////        LoginRs rs = call.execute().body();
+////        Headers headers = call.request().headers();
+////        System.out.println(rs.toString());
+//    }
 }
