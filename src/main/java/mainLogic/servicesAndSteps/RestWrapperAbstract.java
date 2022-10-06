@@ -3,6 +3,7 @@ package mainLogic.servicesAndSteps;
 import io.qameta.allure.Attachment;
 import mainLogic.utils.configs.TestConfigFactory;
 import okhttp3.*;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -10,9 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public abstract class RestWrapperAbstract {
+public abstract class RestWrapperAbstract <T> {
 
-    private static final TestConfigFactory config = TestConfigFactory.getInstance();
+    protected static final TestConfigFactory config = TestConfigFactory.getInstance();
 
     private static final String BASE_URL = config.getGeneralConfig().getBaseURL();
     protected static int READ_TIMEOUT = config.getGeneralConfig().getREAD_TIMEOUT();
@@ -20,15 +21,8 @@ public abstract class RestWrapperAbstract {
     public static Map<String, String> headers = new HashMap<>();
     protected Headers requestHeaders;
     protected Headers responseHeaders;
-    /*
-    Services
-    */
 
 
-    /**
-     * Default constructor.
-     * It initializes all services before tests
-     */
     public static Retrofit setReadyRetrofit(OkHttpClient httpClient) {
         return new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(JacksonConverterFactory.create())
@@ -45,8 +39,8 @@ public abstract class RestWrapperAbstract {
                 .build();
     }
 
-    @Attachment(type = "application/json")
-    public static String attachTextToAllure(String... attachedText) {
+    @Attachment(value = "{0}",type = "application/json")
+    public static String attachTextToAllure(String reason, String... attachedText) {
         String fullAttach = "";
         for (String attachment : attachedText) {
             fullAttach = fullAttach.concat(attachment).concat("\n\r");

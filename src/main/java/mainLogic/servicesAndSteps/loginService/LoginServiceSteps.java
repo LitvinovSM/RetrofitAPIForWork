@@ -7,24 +7,35 @@ import retrofit2.Call;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static mainLogic.commonActions.DefaultActions.compareStatusCodes;
 
 public class LoginServiceSteps extends RestWrapperLoginService {
 
-    @И("'сервис авторизации' пользователь успешно авторизуется и добавляет токен к списку заголовков")
+    @И("'сервис авторизации' пользователь успешно авторизуется c параметрами по умолчанию и добавляет токен к списку заголовков")
     public void auth() throws IOException {
-        rqBody = LoginRq.builder().email("eve.holt@reqres.in").password("cityslicka").build();
+        authAs(defaultLogin,defaultPassword);
+        checkStatusCode(200);
+        putTokenToHeadersList();
+    }
+
+    @И("'сервис авторизации' пользователь авторизуется под логином {string} и паролем {string}")
+    public void authAs(String login, String password) throws IOException {
+        rqBody = LoginRq.builder().email(login).password(password).build();
         Call<LoginRs> call = loginService.login(headers, rqBody);
         request = call.request();
         response = call.execute();
-        rsBody = response.body();
-        requestHeaders = request.headers();
-        responseHeaders = response.headers();
-        token = rsBody.getToken();
-        assertNotEquals(null, token);
-        attachTextToAllure(request.toString());
-        attachTextToAllure(response.toString(), rsBody.toString(), responseHeaders.toString());
-        headers.put(authorizationHeaderName, tokenValuePrefix + token);
+        attachTextToAllure("Запрос и ответ при авторизации",request.toString(),response.toString());
     }
 
+    @И("'сервис авторизации' добавляет токен авторизации к списку заголовков")
+    public void putTokenToHeadersList() {
+        token = response.body().getToken();
+        headers.put(authorizationHeaderName, tokenValuePrefix + token);
+        attachTextToAllure("Список заголовков",headers.toString());
+    }
+
+    @И("'сервис авторизации' проверяет что статус код ответа равен {int}")
+    public void checkStatusCode(int expectedStatusCode) {
+        compareStatusCodes(response,expectedStatusCode);
+    }
 }

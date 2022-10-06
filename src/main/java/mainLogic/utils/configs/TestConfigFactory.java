@@ -7,6 +7,7 @@ import com.typesafe.config.ConfigFactory;
 public class TestConfigFactory {
     private volatile Config config;
     private volatile GeneralConfig generalConfig;
+    private volatile CredentialConfig credentialConfig;
 
     /**
      * Создание выборки конфигов из системных свойств,
@@ -29,6 +30,15 @@ public class TestConfigFactory {
         return generalConfig;
     }
 
+    /**
+     * Получение части основного конфига
+     */
+    public synchronized CredentialConfig getCredentialConfig() {
+        if (credentialConfig == null) {
+            credentialConfig = ConfigBeanFactory.create(config.getConfig("credential"), CredentialConfig.class);
+        }
+        return credentialConfig;
+    }
     /**
      * Получение экземпляра класса фабрики
      */

@@ -8,6 +8,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static mainLogic.servicesAndSteps.RestWrapperAbstract.attachTextToAllure;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class DefaultActions {
 
     private List<Integer> listCorrectStatusCodes = new ArrayList<>();
@@ -49,5 +53,10 @@ public class DefaultActions {
         return isIt;
     }
 
+    public static <T> void compareStatusCodes(Response<T> response,int expectedStatusCode) {
+        int actualStatusCode = response.code();
+        if (actualStatusCode!=expectedStatusCode){attachTextToAllure("Сравнение статус кодов, ответ и тело ответа", response.toString(), response.body().toString());}
+        assertEquals(actualStatusCode, expectedStatusCode, String.format("Ожидаемый статус код: %s не соответствует фактическому: %s", expectedStatusCode, actualStatusCode));
+    }
 
 }
