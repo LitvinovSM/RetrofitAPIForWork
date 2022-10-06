@@ -3,7 +3,6 @@ package mainLogic.servicesAndSteps;
 import io.qameta.allure.Attachment;
 import mainLogic.utils.configs.TestConfigFactory;
 import okhttp3.*;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -11,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public abstract class RestWrapperAbstract <T> {
+public abstract class RestWrapperAbstract{
 
     protected static final TestConfigFactory config = TestConfigFactory.getInstance();
 
@@ -21,7 +20,6 @@ public abstract class RestWrapperAbstract <T> {
     public static Map<String, String> headers = new HashMap<>();
     protected Headers requestHeaders;
     protected Headers responseHeaders;
-
 
     public static Retrofit setReadyRetrofit(OkHttpClient httpClient) {
         return new Retrofit.Builder().baseUrl(BASE_URL)

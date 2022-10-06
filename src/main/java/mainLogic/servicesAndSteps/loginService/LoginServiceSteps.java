@@ -38,4 +38,9 @@ public class LoginServiceSteps extends RestWrapperLoginService {
     public void checkStatusCode(int expectedStatusCode) {
         compareStatusCodes(response,expectedStatusCode);
     }
+
+    @И("'сервис авторизации' проверяет что текст ошибки в теле сообщения равен {string}")
+    public void сервисАвторизацииПроверяетЧтоТекстОшибкиВТелеСообщенияРавенErrorMissingPassword(String expectedErrorText) {
+        
+    }
 }
