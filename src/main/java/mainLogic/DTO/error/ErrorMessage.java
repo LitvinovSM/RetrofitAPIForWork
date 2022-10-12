@@ -1,10 +1,10 @@
-﻿package mainLogic.DTO.error;
+package mainLogic.DTO.error;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class Error {
+public class ErrorMessage {
     @JsonProperty("error")
     String error;
 }

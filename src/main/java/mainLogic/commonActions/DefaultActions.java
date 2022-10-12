@@ -1,5 +1,7 @@
 package mainLogic.commonActions;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import mainLogic.DTO.error.ErrorMessage;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -12,20 +14,9 @@ import static mainLogic.servicesAndSteps.RestWrapperAbstract.attachTextToAllure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DefaultActions {
+public interface DefaultActions {
 
-    private List<Integer> listCorrectStatusCodes = new ArrayList<>();
-
-    public <T> Response<T> executeAndGetResponseAsClass(Call<T> service) {
-        Call<T> call = service;
-        try {
-            return call.execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public <T> double calculateResponseTime(Response<T> response) {
+    public default  <T> double calculateResponseTime(Response<T> response) {
         BigDecimal sentAt = BigDecimal.valueOf(response.raw().sentRequestAtMillis());
         BigDecimal receivedAt = BigDecimal.valueOf(response.raw().receivedResponseAtMillis());
         BigDecimal divider = BigDecimal.valueOf(100);
@@ -34,29 +25,20 @@ public class DefaultActions {
         return resultTimeInSeconds.doubleValue();
     }
 
-    public <T> boolean isValidatedError(Response<T> response) {
-        boolean isIt = isServerError(response);
-        if (listCorrectStatusCodes.contains(response.code())) {
-            isIt = true;
-
-        }
-        return isIt;
-    }
-
-    public <T> boolean isServerError(Response<T> response) {
-        boolean isIt = false;
-        if (response.code() == 500) {
-            isIt = true;
-            String serverErrorMessage = response.raw().body().toString();
-            System.out.println("Server error is caught. Here is a error body: \n\r" + serverErrorMessage);
-        }
-        return isIt;
-    }
-
-    public static <T> void compareStatusCodes(Response<T> response,int expectedStatusCode) {
+    public default <T> void compareStatusCodes(Response<T> response,int expectedStatusCode) {
         int actualStatusCode = response.code();
         if (actualStatusCode!=expectedStatusCode){attachTextToAllure("Сравнение статус кодов, ответ и тело ответа", response.toString(), response.body().toString());}
         assertEquals(actualStatusCode, expectedStatusCode, String.format("Ожидаемый статус код: %s не соответствует фактическому: %s", expectedStatusCode, actualStatusCode));
     }
 
+    public default <T> ErrorMessage getResponseAsErrorMessage(Response<T> response) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = response.errorBody().string();
+        return mapper.readValue(jsonString,ErrorMessage.class);
+    }
+
+    public default <T> void compareErrorMessageText(Response<T> response, String expectedErrorText) throws IOException {
+        String actualMessage = getResponseAsErrorMessage(response).getError();
+        assertTrue(actualMessage.equals(expectedErrorText),String.format("Текущей текст ошибки: %s не соответствует ожидаемому: %s",actualMessage,expectedErrorText));
+    }
 }

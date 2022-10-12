@@ -1,6 +1,7 @@
 package mainLogic.servicesAndSteps;
 
 import io.qameta.allure.Attachment;
+import mainLogic.commonActions.DefaultActions;
 import mainLogic.utils.configs.TestConfigFactory;
 import okhttp3.*;
 import retrofit2.Retrofit;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public abstract class RestWrapperAbstract{
+public abstract class RestWrapperAbstract implements DefaultActions {
 
     protected static final TestConfigFactory config = TestConfigFactory.getInstance();
 

@@ -7,7 +7,6 @@ import retrofit2.Call;
 
 import java.io.IOException;
 
-import static mainLogic.commonActions.DefaultActions.compareStatusCodes;
 
 public class LoginServiceSteps extends RestWrapperLoginService {
 
@@ -37,10 +36,11 @@ public class LoginServiceSteps extends RestWrapperLoginService {
     @И("'сервис авторизации' проверяет что статус код ответа равен {int}")
     public void checkStatusCode(int expectedStatusCode) {
         compareStatusCodes(response,expectedStatusCode);
+        System.out.println(response.body());
     }
 
     @И("'сервис авторизации' проверяет что текст ошибки в теле сообщения равен {string}")
-    public void сервисАвторизацииПроверяетЧтоТекстОшибкиВТелеСообщенияРавенErrorMissingPassword(String expectedErrorText) {
-        
+    public void compareErrorText(String expectedErrorText) throws IOException {
+        compareErrorMessageText(response,expectedErrorText);
     }
 }
