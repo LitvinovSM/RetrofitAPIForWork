@@ -1,6 +1,7 @@
 package mainLogic.servicesAndSteps;
 
 import io.cucumber.java.ru.И;
+import retrofit2.Response;
 
 public class CommonSteps extends RestWrapperAbstract{
 
@@ -9,4 +10,9 @@ public class CommonSteps extends RestWrapperAbstract{
         headers.put(header, value);
     }
 
+    @И("'универсальный шаг' проверяет что статус код ответа равен {int}")
+    public void checkStatusCode(int expectedStatusCode) {
+        Response<?> response = storedValues.get(RESPONSE_KEY);
+        compareStatusCodes(response,expectedStatusCode);
+    }
 }

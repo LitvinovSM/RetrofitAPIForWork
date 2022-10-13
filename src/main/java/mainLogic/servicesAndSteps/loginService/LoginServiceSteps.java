@@ -3,6 +3,7 @@ package mainLogic.servicesAndSteps.loginService;
 import io.cucumber.java.ru.И;
 import mainLogic.DTO.loginService.LoginRq;
 import mainLogic.DTO.loginService.LoginRs;
+import mainLogic.servicesAndSteps.CommonSteps;
 import retrofit2.Call;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class LoginServiceSteps extends RestWrapperLoginService {
     @И("'сервис авторизации' пользователь успешно авторизуется c параметрами по умолчанию и добавляет токен к списку заголовков")
     public void auth() throws IOException {
         authAs(defaultLogin,defaultPassword);
-        checkStatusCode(200);
+        new CommonSteps().checkStatusCode(200);
         putTokenToHeadersList();
     }
 
@@ -22,7 +23,7 @@ public class LoginServiceSteps extends RestWrapperLoginService {
         rqBody = LoginRq.builder().email(login).password(password).build();
         Call<LoginRs> call = loginService.login(headers, rqBody);
         request = call.request();
-        response = call.execute();
+        response = executeAndStoreResponse(call);
         attachTextToAllure("Запрос и ответ при авторизации",request.toString(),response.toString());
     }
 
@@ -33,10 +34,6 @@ public class LoginServiceSteps extends RestWrapperLoginService {
         attachTextToAllure("Список заголовков",headers.toString());
     }
 
-    @И("'сервис авторизации' проверяет что статус код ответа равен {int}")
-    public void checkStatusCode(int expectedStatusCode) {
-        compareStatusCodes(response,expectedStatusCode);
-    }
 
     @И("'сервис авторизации' проверяет что текст ошибки в теле сообщения равен {string}")
     public void compareErrorText(String expectedErrorText) throws IOException {

@@ -7,13 +7,30 @@ import retrofit2.Response;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import static mainLogic.servicesAndSteps.RestWrapperAbstract.attachTextToAllure;
 import static org.junit.jupiter.api.Assertions.*;
 
 public interface DefaultActions {
+    String RESPONSE_KEY = "RESPONSE";
+    /**
+     * Hash map for storing Responses*/
+    HashMap<String,Response<?>> storedValues = new HashMap<>();
+
+    /**
+     *Executing the service and put the response to HashMap storedValues
+     * @param service the service will be executed
+     * @return response with the type of executed service*/
+    default <T> Response<T> executeAndStoreResponse(Call<T> service) {
+        try {
+            Response<T> response = service.execute();
+            storedValues.put(RESPONSE_KEY,response);
+            return response;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Calculate the response time as a double type value

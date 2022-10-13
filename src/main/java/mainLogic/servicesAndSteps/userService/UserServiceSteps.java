@@ -14,14 +14,15 @@ public class UserServiceSteps extends RestWrapperUserService{
     public void getSingleUserById(int userId) throws IOException {
         Call<SingleUserRs> call = userService.getUser(headers,userId);
         request = call.request();
-        singleUserResponse = call.execute();
+        singleUserResponse = executeAndStoreResponse(call);
         userFromResponse = singleUserResponse.body().getUser();
         supportFromResponse = singleUserResponse.body().getSupport();
     }
 
     @И("'сервис пользователей' проверяет что статус код ответа получения одного пользователя равен {int}")
     public void checkStatusCode(int expectedStatusCode) {
-        compareStatusCodes(singleUserResponse,expectedStatusCode);
+
+        compareStatusCodes(storedValues.get("RESPONSE"),expectedStatusCode);
     }
 
     @И("'сервис пользователей' проверяет что first_name равно {string}")
