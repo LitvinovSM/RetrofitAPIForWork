@@ -11,12 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static mainLogic.servicesAndSteps.RestWrapperAbstract.attachTextToAllure;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public interface DefaultActions {
 
-    public default  <T> double calculateResponseTime(Response<T> response) {
+    /**
+     * Calculate the response time as a double type value
+     *
+     * @param response target response
+     * @return response time as a double type value
+     */
+    default <T> double calculateResponseTime(Response<T> response) {
         BigDecimal sentAt = BigDecimal.valueOf(response.raw().sentRequestAtMillis());
         BigDecimal receivedAt = BigDecimal.valueOf(response.raw().receivedResponseAtMillis());
         BigDecimal divider = BigDecimal.valueOf(100);
@@ -25,20 +30,44 @@ public interface DefaultActions {
         return resultTimeInSeconds.doubleValue();
     }
 
-    public default <T> void compareStatusCodes(Response<T> response,int expectedStatusCode) {
+    /**
+     * Compare actual status code with expected status code of response
+     *
+     * @param response           target response
+     * @param expectedStatusCode expected status code
+     */
+    default <T> void compareStatusCodes(Response<T> response, int expectedStatusCode) {
         int actualStatusCode = response.code();
-        if (actualStatusCode!=expectedStatusCode){attachTextToAllure("Сравнение статус кодов, ответ и тело ответа", response.toString(), response.body().toString());}
+        if (actualStatusCode != expectedStatusCode) {
+            attachTextToAllure("Сравнение статус кодов, ответ и тело ответа", response.toString(), response.body().toString());
+        }
         assertEquals(actualStatusCode, expectedStatusCode, String.format("Ожидаемый статус код: %s не соответствует фактическому: %s", expectedStatusCode, actualStatusCode));
     }
 
-    public default <T> ErrorMessage getResponseAsErrorMessage(Response<T> response) throws IOException {
+    /**
+     * Cast the response body contains the expected error to ErrorMessage object
+     *
+     * @param response target response
+     * @return an object with ErrorMessage type
+     */
+    default <T> ErrorMessage getResponseAsErrorMessage(Response<T> response) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
+        assertNotEquals(response.errorBody(), null, "Ожидалось что тело с ошибкой не пустое, но оно пустое");
         String jsonString = response.errorBody().string();
-        return mapper.readValue(jsonString,ErrorMessage.class);
+        return mapper.readValue(jsonString, ErrorMessage.class);
     }
 
-    public default <T> void compareErrorMessageText(Response<T> response, String expectedErrorText) throws IOException {
+    /**
+     * Compare the actual error text with expected error text
+     *
+     * @param response          target response
+     * @param expectedErrorText expected full error text
+     */
+    default <T> void compareErrorMessageText(Response<T> response, String expectedErrorText) throws IOException {
         String actualMessage = getResponseAsErrorMessage(response).getError();
-        assertTrue(actualMessage.equals(expectedErrorText),String.format("Текущей текст ошибки: %s не соответствует ожидаемому: %s",actualMessage,expectedErrorText));
+        if (!actualMessage.equals(expectedErrorText)) {
+            attachTextToAllure("Сравнение ожидаемого и фактического кода ошибки", expectedErrorText, actualMessage);
+        }
+        assertEquals(actualMessage, expectedErrorText, String.format("Текущей текст ошибки: %s не соответствует ожидаемому: %s", actualMessage, expectedErrorText));
     }
 }
