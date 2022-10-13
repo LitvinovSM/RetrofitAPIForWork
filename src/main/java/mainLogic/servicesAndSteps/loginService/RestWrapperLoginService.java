@@ -11,11 +11,7 @@ import static mainLogic.servicesAndSteps.BeforeAndAfterSteps.readyRetrofit;
 
 public class RestWrapperLoginService extends RestWrapperAbstract {
 
-    /*
-    Services
-    */
     public LoginService loginService = readyRetrofit.create(LoginService.class);
-    protected Request request;
     protected LoginRq rqBody;
     protected Response<LoginRs> response;
     protected LoginRs rsBody;

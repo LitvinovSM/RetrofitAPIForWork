@@ -19,8 +19,8 @@ public abstract class RestWrapperAbstract implements DefaultActions {
     protected static int READ_TIMEOUT = config.getGeneralConfig().getREAD_TIMEOUT();
     protected static int CONNECT_TIMEOUT = config.getGeneralConfig().getCONNECT_TIMEOUT();
     public static Map<String, String> headers = new HashMap<>();
-    protected Headers requestHeaders;
-    protected Headers responseHeaders;
+    public Request request;
+
 
     public static Retrofit setReadyRetrofit(OkHttpClient httpClient) {
         return new Retrofit.Builder().baseUrl(BASE_URL)
