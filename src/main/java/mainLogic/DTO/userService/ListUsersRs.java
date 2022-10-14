@@ -4,9 +4,12 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import mainLogic.DTO.AbstractResponse;
 
 @Data
-public class ListUsersRs {
+@EqualsAndHashCode(callSuper = false)
+public class ListUsersRs extends AbstractResponse {
 
     @JsonProperty("per_page")
     private int perPage;

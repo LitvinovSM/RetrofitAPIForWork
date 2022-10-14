@@ -2,10 +2,13 @@ package mainLogic.DTO.userService;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import mainLogic.DTO.AbstractResponse;
 
 
 @Data
-public class SingleUserRs {
+@EqualsAndHashCode(callSuper = false)
+public class SingleUserRs extends AbstractResponse {
 
     @JsonProperty("data")
     private User user;

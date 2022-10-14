@@ -4,12 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import mainLogic.DTO.AbstractResponse;
 import mainLogic.utils.deserializeStrategies.StringToLocalDateTime;
 
 import java.time.LocalDateTime;
 
 @Data
-public class CreateUserRs {
+@EqualsAndHashCode(callSuper = false)
+public class CreateUserRs extends AbstractResponse {
 
     @JsonProperty("createdAt")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss.SSSZ")

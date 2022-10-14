@@ -1,12 +1,14 @@
 package mainLogic.commonActions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import mainLogic.DTO.AbstractResponse;
 import mainLogic.DTO.error.ErrorMessage;
 import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 
 import static mainLogic.servicesAndSteps.RestWrapperAbstract.attachTextToAllure;
@@ -16,13 +18,13 @@ public interface DefaultActions {
     String RESPONSE_KEY = "RESPONSE";
     /**
      * Hash map for storing Responses*/
-    HashMap<String,Response<?>> storedValues = new HashMap<>();
+    HashMap<String,Response<? extends AbstractResponse>> storedValues = new HashMap<>();
 
     /**
      *Executing the service and put the response to HashMap storedValues
      * @param service the service will be executed
      * @return response with the type of executed service*/
-    default <T> Response<T> executeAndStoreResponse(Call<T> service) {
+    default <T extends AbstractResponse> Response<T> executeAndStoreResponse(Call<T> service) {
         try {
             Response<T> response = service.execute();
             storedValues.put(RESPONSE_KEY,response);
@@ -42,8 +44,7 @@ public interface DefaultActions {
         BigDecimal sentAt = BigDecimal.valueOf(response.raw().sentRequestAtMillis());
         BigDecimal receivedAt = BigDecimal.valueOf(response.raw().receivedResponseAtMillis());
         BigDecimal divider = BigDecimal.valueOf(100);
-        BigDecimal resultTimeInSeconds = receivedAt.subtract(sentAt).divide(divider);
-        resultTimeInSeconds.doubleValue();
+        BigDecimal resultTimeInSeconds = receivedAt.subtract(sentAt).divide(divider, RoundingMode.DOWN);
         return resultTimeInSeconds.doubleValue();
     }
 
@@ -56,7 +57,9 @@ public interface DefaultActions {
     default <T> void compareStatusCodes(Response<T> response, int expectedStatusCode) {
         int actualStatusCode = response.code();
         if (actualStatusCode != expectedStatusCode) {
-            attachTextToAllure("Сравнение статус кодов, ответ и тело ответа", response.toString(), response.body().toString());
+            if (response.body() != null) {
+                attachTextToAllure("Сравнение статус кодов, ответ и тело ответа", response.toString(), response.body().toString());
+            }
         }
         assertEquals(actualStatusCode, expectedStatusCode, String.format("Ожидаемый статус код: %s не соответствует фактическому: %s", expectedStatusCode, actualStatusCode));
     }
@@ -69,7 +72,7 @@ public interface DefaultActions {
      */
     default <T> ErrorMessage getResponseAsErrorMessage(Response<T> response) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        assertNotEquals(response.errorBody(), null, "Ожидалось что тело с ошибкой не пустое, но оно пустое");
+        assertNotNull(response.errorBody(), "Ожидалось что тело с ошибкой не пустое, но оно пустое");
         String jsonString = response.errorBody().string();
         return mapper.readValue(jsonString, ErrorMessage.class);
     }
