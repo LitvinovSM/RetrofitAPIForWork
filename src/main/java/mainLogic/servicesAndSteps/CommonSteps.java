@@ -15,4 +15,9 @@ public class CommonSteps extends RestWrapperAbstract{
         Response<?> response = storedValues.get(RESPONSE_KEY);
         compareStatusCodes(response,expectedStatusCode);
     }
+
+    @И("'универсальный шаг' добавляет к запросу параметр {string} со значением {string}")
+    public void addParamToQuery(String paramName, String paramValue) {
+        queryParams.put(paramName,paramValue);
+    }
 }

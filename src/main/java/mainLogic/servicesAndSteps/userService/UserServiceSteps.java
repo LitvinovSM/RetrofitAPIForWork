@@ -1,13 +1,14 @@
 package mainLogic.servicesAndSteps.userService;
 
 import io.cucumber.java.ru.И;
+import mainLogic.DTO.userService.ListUsersRs;
 import mainLogic.DTO.userService.SingleUserRs;
+import mainLogic.DTO.userService.User;
 import retrofit2.Call;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceSteps extends RestWrapperUserService{
 
@@ -56,5 +57,30 @@ public class UserServiceSteps extends RestWrapperUserService{
     public void checkUserAvatar(String expectedAvatarLink) {
         String actualAvatarLink = userFromResponse.getAvatar();
         assertEquals(expectedAvatarLink,actualAvatarLink,String.format("Ожидаемый avatar пользователя %s не соответствует фактическому %s",expectedAvatarLink,actualAvatarLink));
+    }
+
+    @И("'сервис пользователей' получает список пользователей со страницы {int}")
+    public void getUserListByPage(int pageNumber) {
+    }
+
+    @И("'сервис пользователей' получает список пользователей с заданными параметрами")
+    public void getListUsersWithParams() throws IOException {
+        Call<ListUsersRs> call = userService.getListUsers(headers,queryParams);
+        request= call.request();
+        listUsersResponse = executeAndStoreResponse(call);
+        assertNotNull(listUsersResponse.body(),String.format("Ожидалось, что listUsersResponse не будет пустым, но оно пустое. Тело ошибки: %s", listUsersResponse.errorBody()));
+        assertTrue(listUsersResponse.body().getUsersList().size()!=0);
+    }
+
+    @И("'сервис пользователей' проверяет что список пользователей содержит пользователя с id равным {int}")
+    public void checkThatUsersListContains(int expectedId) {
+        assert listUsersResponse.body() != null;
+        userFromResponse = listUsersResponse.body()
+                .getUsersList()
+                .stream()
+                .filter((user -> user.getId() == expectedId))
+                .findFirst()
+                .orElse(null);
+        assertNotNull(userFromResponse,String.format("Ожидалось что пользователь с id равным %s присутствует в списке, но список таков: %s",expectedId,listUsersResponse.body()));
     }
 }

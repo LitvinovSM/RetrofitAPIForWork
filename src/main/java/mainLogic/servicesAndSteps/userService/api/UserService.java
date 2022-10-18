@@ -7,9 +7,9 @@ import retrofit2.http.*;
 import java.util.Map;
 
 public interface UserService {
-
     @GET("users")
-    Call<ListUsersRs> getListUsers(@HeaderMap Map<String, String> headers);
+    Call<ListUsersRs> getListUsers(@HeaderMap Map<String, String> headers,
+                                   @QueryMap Map<String,String> queryParams);
 
     @GET("users")
     Call<ListUsersRs> getListUsersDelay(@HeaderMap Map<String, String> headers,

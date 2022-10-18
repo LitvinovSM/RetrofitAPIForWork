@@ -19,6 +19,7 @@ public abstract class RestWrapperAbstract implements DefaultActions {
     protected static int READ_TIMEOUT = config.getGeneralConfig().getREAD_TIMEOUT();
     protected static int CONNECT_TIMEOUT = config.getGeneralConfig().getCONNECT_TIMEOUT();
     public static Map<String, String> headers = new HashMap<>();
+    public static Map<String, String> queryParams = new HashMap<>();
     public Request request;
 
 
