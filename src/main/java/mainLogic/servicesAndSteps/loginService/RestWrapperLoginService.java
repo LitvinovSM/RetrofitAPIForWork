@@ -19,7 +19,7 @@ public class RestWrapperLoginService extends RestWrapperAbstract {
     protected String token;
     protected final String tokenValuePrefix = "Bearer ";
     protected final String authorizationHeaderName = "Authorization";
-    protected String defaultLogin =config.getCredentialConfig().getDefaultLogin();
-    protected String defaultPassword=config.getCredentialConfig().getDefaultPassword();
+    protected String defaultLogin =standConfig.getDefaultAuth().getLogin();
+    protected String defaultPassword=standConfig.getDefaultAuth().getPassword();
 
 }

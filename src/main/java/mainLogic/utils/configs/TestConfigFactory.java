@@ -4,14 +4,15 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigBeanFactory;
 import com.typesafe.config.ConfigFactory;
 
+
 public class TestConfigFactory {
     private volatile Config config;
-    private volatile GeneralConfig generalConfig;
-    private volatile CredentialConfig credentialConfig;
+    private volatile MainConf mainConf;
+    private volatile StandConfig standConfig;
 
     /**
      * Создание выборки конфигов из системных свойств,
-     * системных переменных и файла WebTestsConfig.cof
+     * системных переменных и файла TestsConfig.conf
      */
     private TestConfigFactory() {
         config = ConfigFactory.systemProperties()
@@ -23,21 +24,21 @@ public class TestConfigFactory {
     /**
      * Получение части основного конфига
      */
-    public synchronized GeneralConfig getGeneralConfig() {
-        if (generalConfig == null) {
-            generalConfig = ConfigBeanFactory.create(config.getConfig("general"), GeneralConfig.class);
+    public synchronized MainConf getMainConfig() {
+        if (mainConf == null) {
+            mainConf = ConfigBeanFactory.create(config.getConfig("main"), MainConf.class);
         }
-        return generalConfig;
+        return mainConf;
     }
 
     /**
-     * Получение части основного конфига
+     * Получение части конфигураций стенда
      */
-    public synchronized CredentialConfig getCredentialConfig() {
-        if (credentialConfig == null) {
-            credentialConfig = ConfigBeanFactory.create(config.getConfig("credential"), CredentialConfig.class);
+    public synchronized StandConfig getStandConfig() {
+        if (standConfig == null) {
+            standConfig = ConfigBeanFactory.create(config.getConfig(getMainConfig().getTargetStand()), StandConfig.class);
         }
-        return credentialConfig;
+        return standConfig;
     }
     /**
      * Получение экземпляра класса фабрики
