@@ -8,9 +8,6 @@ public class StandConfig {
     private String BDLink;
     private String BDLogin;
     private String BDPass;
-    private Credentials defaultAuth;
-    private Credentials mainCACredentials;
-    private Credentials mainAnalystCredentials;
-    private Credentials analystFirst;
+    private Auth auth;
 
 }

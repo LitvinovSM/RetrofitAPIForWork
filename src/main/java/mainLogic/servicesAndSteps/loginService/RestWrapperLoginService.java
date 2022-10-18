@@ -4,6 +4,7 @@ import mainLogic.DTO.loginService.LoginRq;
 import mainLogic.DTO.loginService.LoginRs;
 import mainLogic.servicesAndSteps.RestWrapperAbstract;
 import mainLogic.servicesAndSteps.loginService.api.LoginService;
+import mainLogic.utils.configs.Auth;
 import okhttp3.Request;
 import retrofit2.Response;
 
@@ -19,7 +20,9 @@ public class RestWrapperLoginService extends RestWrapperAbstract {
     protected String token;
     protected final String tokenValuePrefix = "Bearer ";
     protected final String authorizationHeaderName = "Authorization";
-    protected String defaultLogin =standConfig.getDefaultAuth().getLogin();
-    protected String defaultPassword=standConfig.getDefaultAuth().getPassword();
+
+    protected Auth auth = standConfig.getAuth();
+    protected String defaultLogin =auth.getDefaultAuth().getLogin();
+    protected String defaultPassword=auth.getDefaultAuth().getPassword();
 
 }
