@@ -1,5 +1,6 @@
 package mainLogic.servicesAndSteps.userService;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.ru.И;
 import mainLogic.DTO.userService.ListUsersRs;
 import mainLogic.DTO.userService.SingleUserRs;
@@ -10,6 +11,8 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 
 import static mainLogic.utils.CompareUtil.getMethodByName;
 import static mainLogic.utils.CompareUtil.invokeMethodByName;
@@ -90,4 +93,18 @@ public class UserServiceSteps extends RestWrapperUserService {
     }
 
 
+    @И("'сервис пользователей' проверяет что пользователь имеет параметры")
+    public void сервисПользовательПроверяетЧтоПользовательИмеетПараметры(DataTable dataTable) {
+        Map<String,String> fieldsToMethodsMap= Map.of("id","getId");
+        List<Map<String,String>> table = dataTable.asMaps(String.class,String.class);
+        String nameOfParam = table.get(0).get("НАЗВАНИЕ ПАРАМЕТРА");
+        String comparison = table.get(0).get("УСЛОВИЕ СРАВНЕНИЯ");
+        String expectedValue = table.get(0).get("ОЖИДАЕМОЕ ЗНАЧЕНИЕ");
+        userFromResponse = listUsersResponse.body()
+                .getUsersList()
+                .stream()
+                .filter((user -> invokeMethodByName(User.class,user,fieldsToMethodsMap.get(nameOfParam)).equals(expectedValue)))
+                .findFirst()
+                .orElse(null);
+    }
 }
