@@ -82,7 +82,7 @@ public class UserServiceSteps extends RestWrapperUserService {
 
     @И("'сервис пользователей' проверяет что список пользователей содержит пользователя с id равным {int}")
     public void checkThatUsersListContains(int expectedId) {
-        assert listUsersResponse.body() != null;
+        assertNotNull(listUsersResponse.body());
         userFromResponse = listUsersResponse.body()
                 .getUsersList()
                 .stream()
@@ -100,11 +100,6 @@ public class UserServiceSteps extends RestWrapperUserService {
         String nameOfParam = table.get(0).get("НАЗВАНИЕ ПАРАМЕТРА");
         String comparison = table.get(0).get("УСЛОВИЕ СРАВНЕНИЯ");
         String expectedValue = table.get(0).get("ОЖИДАЕМОЕ ЗНАЧЕНИЕ");
-        userFromResponse = listUsersResponse.body()
-                .getUsersList()
-                .stream()
-                .filter((user -> invokeMethodByName(User.class,user,fieldsToMethodsMap.get(nameOfParam)).equals(expectedValue)))
-                .findFirst()
-                .orElse(null);
+
     }
 }
