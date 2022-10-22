@@ -14,8 +14,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
-import static mainLogic.utils.CompareUtil.getMethodByName;
-import static mainLogic.utils.CompareUtil.invokeMethodByName;
+import static mainLogic.utils.CompareUtil.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceSteps extends RestWrapperUserService {
@@ -95,11 +94,6 @@ public class UserServiceSteps extends RestWrapperUserService {
 
     @И("'сервис пользователей' проверяет что пользователь имеет параметры")
     public void сервисПользовательПроверяетЧтоПользовательИмеетПараметры(DataTable dataTable) {
-        Map<String,String> fieldsToMethodsMap= Map.of("id","getId");
-        List<Map<String,String>> table = dataTable.asMaps(String.class,String.class);
-        String nameOfParam = table.get(0).get("НАЗВАНИЕ ПАРАМЕТРА");
-        String comparison = table.get(0).get("УСЛОВИЕ СРАВНЕНИЯ");
-        String expectedValue = table.get(0).get("ОЖИДАЕМОЕ ЗНАЧЕНИЕ");
-
+        comparatorFromStandardTableAsMap(dataTable,User.class,userFromResponse);
     }
 }
