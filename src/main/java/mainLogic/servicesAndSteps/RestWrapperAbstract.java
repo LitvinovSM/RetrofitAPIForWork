@@ -25,6 +25,7 @@ public abstract class RestWrapperAbstract implements DefaultActions {
     public static Map<String, String> queryParams = new HashMap<>();
     public Request request;
 
+    public static Map<String, String> fieldsToMethodsMap;
 
     public static Retrofit setReadyRetrofit(OkHttpClient httpClient) {
         return new Retrofit.Builder().baseUrl(BASE_URL)

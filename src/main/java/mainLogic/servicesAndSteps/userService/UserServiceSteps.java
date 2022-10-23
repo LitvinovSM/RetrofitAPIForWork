@@ -4,15 +4,9 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.ru.И;
 import mainLogic.DTO.userService.ListUsersRs;
 import mainLogic.DTO.userService.SingleUserRs;
-import mainLogic.DTO.userService.User;
 import retrofit2.Call;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
 
 import static mainLogic.utils.CompareUtil.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -94,6 +88,7 @@ public class UserServiceSteps extends RestWrapperUserService {
 
     @И("'сервис пользователей' проверяет что пользователь имеет параметры")
     public void сервисПользовательПроверяетЧтоПользовательИмеетПараметры(DataTable dataTable) {
-        comparatorFromStandardTableAsMap(dataTable,User.class,userFromResponse);
+        initUserFieldsToMethodsMap();
+        useComparatorOnDataTable(dataTable,userFromResponse,fieldsToMethodsMap);
     }
 }
