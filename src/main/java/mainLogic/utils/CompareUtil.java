@@ -29,7 +29,7 @@ public class CompareUtil {
 
     /* Типы данных */
     private static final String STRING_TYPE = "String";
-    private static final String INT_TYPE = "Integer";
+    private static final String INT_TYPE = "Int";
     private static final String DOUBLE_TYPE = "Double";
 
 
@@ -107,17 +107,17 @@ public class CompareUtil {
         assertTrue(VALID_STRING_CRITERIA_OF_COMPARISON.contains(criteria),String.format("Указанный критерий сравнения для типа %s (или для дефолтного типа): %s не входит в список валидных критериев сравнения для этих типов данных: \n\r %s",STRING_TYPE,criteria, VALID_STRING_CRITERIA_OF_COMPARISON));
         String resultedStringValue = castObjectToString(resultedObject);
         if (criteria.equalsIgnoreCase(EQUAL)) {
-            assertEquals(resultedStringValue, expectedValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r соответствует ожидаемому значению: \n\r %s ", resultedStringValue, expectedValue));
+            assertEquals(resultedStringValue, expectedValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r соответствует ожидаемому значению: \n\r %s ", resultedStringValue, expectedValue));
         } else if (criteria.equalsIgnoreCase(NOT_EQUAL)) {
-            assertNotEquals(resultedStringValue, expectedValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r не соответствует ожидаемому значению: \n\r %s ", resultedStringValue, expectedValue));
+            assertNotEquals(resultedStringValue, expectedValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r не соответствует ожидаемому значению: \n\r %s ", resultedStringValue, expectedValue));
         } else if (criteria.equalsIgnoreCase(CONTAINS)) {
-            assertTrue(resultedStringValue.contains(expectedValue), String.format("Ожидалось что фактическое значение: \n\r %s \n\r содержит ожидаемое значение: \n\r %s ", resultedStringValue, expectedValue));
+            assertTrue(resultedStringValue.contains(expectedValue), String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r содержит ожидаемое значение: \n\r %s ", resultedStringValue, expectedValue));
         } else if (criteria.equalsIgnoreCase(NOT_CONTAINS)) {
-            assertFalse(resultedStringValue.contains(expectedValue), String.format("Ожидалось что фактическое значение: \n\r %s \n\r не содержит ожидаемое значение: \n\r %s ", resultedStringValue, expectedValue));
+            assertFalse(resultedStringValue.contains(expectedValue), String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r не содержит ожидаемое значение: \n\r %s ", resultedStringValue, expectedValue));
         } else if (criteria.equalsIgnoreCase(NULLABLE)) {
-            assertNull(resultedStringValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r нуллабельное, но оно: \n\r %s ", resultedStringValue, expectedValue));
+            assertNull(resultedStringValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r нуллабельное, но оно: \n\r %s ", resultedStringValue, expectedValue));
         } else if (criteria.equalsIgnoreCase(NOT_NULLABLE)) {
-            assertNotNull(resultedStringValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r не нуллабельное, но оно: \n\r %s ", resultedStringValue, expectedValue));
+            assertNotNull(resultedStringValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r не нуллабельное, но оно: \n\r %s ", resultedStringValue, expectedValue));
         }
     }
 
@@ -130,13 +130,13 @@ public class CompareUtil {
         int resultedIntValue = castObjectToInt(resultedObject);
         int expectedIntValue = castObjectToInt(expectedValue);
         if (criteria.equalsIgnoreCase(EQUAL)) {
-            assertEquals(resultedIntValue, expectedIntValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r равно ожидаемому значению: \n\r %s ", resultedIntValue, expectedIntValue));
+            assertEquals(resultedIntValue, expectedIntValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r равно ожидаемому значению: \n\r %s ", resultedIntValue, expectedIntValue));
         } else if (criteria.equalsIgnoreCase(NOT_EQUAL)) {
-            assertNotEquals(resultedIntValue, expectedIntValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r не равно ожидаемому значению: \n\r %s ", resultedIntValue, expectedIntValue));
+            assertNotEquals(resultedIntValue, expectedIntValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r не равно ожидаемому значению: \n\r %s ", resultedIntValue, expectedIntValue));
         } else if (criteria.equalsIgnoreCase(MORE)) {
-            assertTrue(resultedIntValue>expectedIntValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r больше ожидаемого значения: \n\r %s ", resultedIntValue, expectedIntValue));
+            assertTrue(resultedIntValue>expectedIntValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r больше ожидаемого значения: \n\r %s ", resultedIntValue, expectedIntValue));
         } else if (criteria.equalsIgnoreCase(LESS)) {
-            assertTrue(resultedIntValue<expectedIntValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r меньше ожидаемого значения: \n\r %s ", resultedIntValue, expectedIntValue));
+            assertTrue(resultedIntValue<expectedIntValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r меньше ожидаемого значения: \n\r %s ", resultedIntValue, expectedIntValue));
         }
     }
 
@@ -149,14 +149,18 @@ public class CompareUtil {
         double resultedDoubleValue = castObjectToDouble(resultedObject);
         double expectedDoubleValue = castObjectToInt(expectedValue);
         if (criteria.equalsIgnoreCase(EQUAL)) {
-            assertEquals(resultedDoubleValue, expectedDoubleValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r равно ожидаемому значению: \n\r %s ", resultedDoubleValue, expectedDoubleValue));
+            assertEquals(resultedDoubleValue, expectedDoubleValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r равно ожидаемому значению: \n\r %s ", resultedDoubleValue, expectedDoubleValue));
         } else if (criteria.equalsIgnoreCase(NOT_EQUAL)) {
-            assertNotEquals(resultedDoubleValue, expectedDoubleValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r не равно ожидаемому значению: \n\r %s ", resultedDoubleValue, expectedDoubleValue));
+            assertNotEquals(resultedDoubleValue, expectedDoubleValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r не равно ожидаемому значению: \n\r %s ", resultedDoubleValue, expectedDoubleValue));
         } else if (criteria.equalsIgnoreCase(MORE)) {
-            assertTrue(resultedDoubleValue>expectedDoubleValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r больше ожидаемого значения: \n\r %s ", resultedDoubleValue, expectedDoubleValue));
+            assertTrue(resultedDoubleValue>expectedDoubleValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r больше ожидаемого значения: \n\r %s ", resultedDoubleValue, expectedDoubleValue));
         } else if (criteria.equalsIgnoreCase(LESS)) {
-            assertTrue(resultedDoubleValue<expectedDoubleValue, String.format("Ожидалось что фактическое значение: \n\r %s \n\r меньше ожидаемого значения: \n\r %s ", resultedDoubleValue, expectedDoubleValue));
+            assertTrue(resultedDoubleValue<expectedDoubleValue, String.format("\n\r Ожидалось что фактическое значение: \n\r %s \n\r меньше ожидаемого значения: \n\r %s ", resultedDoubleValue, expectedDoubleValue));
         }
+    }
+
+    private static void comparatorForDateType(Object resultedObject, String criteria, String expectedValue) {
+        //TODO: сделать сравниватель для дат
     }
 
     /** Метод для преобразования объекта в String*/
